@@ -46,7 +46,7 @@ class Student {
     int grupa{};
 public:
     Student() = default;
-    Student(std::string nume_, int grupa_) : nume(nume_), grupa(grupa_) {}
+    Student(const std::string& nume_, int grupa_) : nume(nume_), grupa(grupa_) {}
     Student(const Student& other) : nume(other.nume), grupa(other.grupa) {
         std::cout << "cc student\n";
     }
@@ -59,8 +59,20 @@ public:
     ~Student() {
         std::cout << "destr student\n";
     }
-    bool operator <=> (const Student&) const = default;
+//    bool operator <=> (const Student&) const = default;
+    bool operator==(const Student &rhs) const;
+
+    bool operator!=(const Student &rhs) const;
+
     friend std::ostream& operator<<(std::ostream& os, const Student& student);
+
+    bool operator<(const Student &rhs) const;
+
+    bool operator>(const Student &rhs) const;
+
+    bool operator<=(const Student &rhs) const;
+
+    bool operator>=(const Student &rhs) const;
 };
 
 class Prof {
@@ -99,6 +111,35 @@ public:
 std::ostream& operator<<(std::ostream& os, const Student& student) {
     os << student.nume << " " << student.grupa << "\n";
     return os;
+}
+
+bool Student::operator==(const Student &rhs) const {
+    return nume == rhs.nume &&
+           grupa == rhs.grupa;
+}
+
+bool Student::operator<(const Student &rhs) const {
+    if (nume < rhs.nume)
+        return true;
+    if (rhs.nume < nume)
+        return false;
+    return grupa < rhs.grupa;
+}
+
+bool Student::operator>(const Student &rhs) const {
+    return rhs < *this;
+}
+
+bool Student::operator<=(const Student &rhs) const {
+    return !(rhs < *this);
+}
+
+bool Student::operator>=(const Student &rhs) const {
+    return !(*this < rhs);
+}
+
+bool Student::operator!=(const Student &rhs) const {
+    return !(rhs == *this);
 }
 
 int main() {
