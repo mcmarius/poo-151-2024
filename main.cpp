@@ -59,20 +59,10 @@ public:
     ~Student() {
         std::cout << "destr student\n";
     }
-//    bool operator <=> (const Student&) const = default;
-    bool operator==(const Student &rhs) const;
-
-    bool operator!=(const Student &rhs) const;
+    std::strong_ordering operator <=> (const Student&) const = default;
 
     friend std::ostream& operator<<(std::ostream& os, const Student& student);
 
-    bool operator<(const Student &rhs) const;
-
-    bool operator>(const Student &rhs) const;
-
-    bool operator<=(const Student &rhs) const;
-
-    bool operator>=(const Student &rhs) const;
 };
 
 class Prof {
@@ -113,34 +103,6 @@ std::ostream& operator<<(std::ostream& os, const Student& student) {
     return os;
 }
 
-bool Student::operator==(const Student &rhs) const {
-    return nume == rhs.nume &&
-           grupa == rhs.grupa;
-}
-
-bool Student::operator<(const Student &rhs) const {
-    if (nume < rhs.nume)
-        return true;
-    if (rhs.nume < nume)
-        return false;
-    return grupa < rhs.grupa;
-}
-
-bool Student::operator>(const Student &rhs) const {
-    return rhs < *this;
-}
-
-bool Student::operator<=(const Student &rhs) const {
-    return !(rhs < *this);
-}
-
-bool Student::operator>=(const Student &rhs) const {
-    return !(*this < rhs);
-}
-
-bool Student::operator!=(const Student &rhs) const {
-    return !(rhs == *this);
-}
 
 int main() {
     Student st1{"abc", 123}, st2;
