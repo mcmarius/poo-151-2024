@@ -40,68 +40,9 @@ std::string hash_password(const std::string& plain, const std::string& salt) {
 /////////////////////////////////////////////////////////////////////////////////////////
 
 #include <Helper.h>
-
-class Student {
-    std::string nume;
-    int grupa{};
-public:
-    Student() = default;
-    Student(const std::string& nume_, int grupa_) : nume(nume_), grupa(grupa_) {}
-    Student(const Student& other) : nume(other.nume), grupa(other.grupa) {
-        std::cout << "cc student\n";
-    }
-    Student& operator=(const Student& other) {
-        std::cout << "op= student\n";
-        this->nume = other.nume;
-        this->grupa = other.grupa;
-        return *this;
-    }
-    ~Student() {
-        std::cout << "destr student\n";
-    }
-    std::strong_ordering operator <=> (const Student&) const = default;
-
-    friend std::ostream& operator<<(std::ostream& os, const Student& student);
-
-};
-
-class Prof {
-    std::string nume;
-    std::string curs;
-public:
-    Prof(const std::string &nume, const std::string &curs) : nume(nume), curs(curs) {}
-
-    friend std::ostream &operator<<(std::ostream &os, const Prof &prof) {
-        os << "nume: " << prof.nume << " curs: " << prof.curs;
-        return os;
-    }
-};
-
-class Facultate {
-    std::string nume;
-    std::vector<Student> studenti;
-    std::vector<Prof> profi;
-public:
-
-    Facultate(const std::string &nume, const std::vector<Student> &studenti, const std::vector<Prof> &profi) : nume(
-            nume), studenti(studenti), profi(profi) {}
-
-    friend std::ostream &operator<<(std::ostream &os, const Facultate &facultate) {
-        os << "nume: " << facultate.nume << " studenti: ";
-        for (const auto& student : facultate.studenti)
-            os << student;
-        os << "\nprofi: ";
-        for (const auto& prof : facultate.profi)
-            os << prof;
-        os << "\n";
-        return os;
-    }
-};
-
-std::ostream& operator<<(std::ostream& os, const Student& student) {
-    os << student.nume << " " << student.grupa << "\n";
-    return os;
-}
+#include "Student.h"
+#include "Prof.h"
+#include "Facultate.h"
 
 
 int main() {
