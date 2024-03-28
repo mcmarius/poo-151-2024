@@ -110,6 +110,8 @@ int main() {
 //    std::vector<Student> studenti;
 //    studenti.push_back(st1);
     //st1 = st2;
+    Prof pr1{"a", "oop"}, pr2{"b", "nlp"};
+    Facultate fmi{"fmi", {st1, st2}, {pr1, pr2}};
     std::cout << "Hello, world!\n";
     std::array<int, 100> v{};
     int nr;
